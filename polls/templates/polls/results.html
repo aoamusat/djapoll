@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Poll Results | {{ question.question_text }}</title>
+	<link rel="stylesheet" href="{% static 'css/materialize.min.css' %}" />
+	<link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}" />
+	<link rel="icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}" />
+</head>
+<body>
+	<nav class="pink darken-4" role="navigation">
+		<div class="nav-wrapper container">
+			<a href="{% url 'polls:election_result' %}" title="Home" class="brand-logo">NASS Poll</a>
+			<ul class="right hide-on-med-and-down">
+				<li><a href="#" title="">Polls</a></li>
+				<li><a href="#" title="">How it Works</a></li>
+				<li><a href="#" title="">Register</a></li>
+				<li><a href="#" title="">About</a></li>
+			</ul>
+			<ul class="side-nav" id="nav-mobile">
+				<li><a href="#" title="">Polls</a></li>
+				<li><a href="#" title="">How it Works</a></li>
+				<li><a href="#" title="">Register</a></li>
+				<li><a href="#" title="">About</a></li>
+			</ul>
+			<a href="#" data-activates="nav-mobile" class="button-collapse"><i class="fa fa-globle"></i></a>
+		</div>
+	</nav>
+
+	<!-- End nav -->
+
+	<div class="container">
+		<div class="row">
+			<div class="col l12 s12"><br>
+				<h4 class="center orange-text text-darken-4">Results For - <a href="#!" title="">{{ question.question_text }}</a></h4><div class="divider"></div>
+				{% for choice in question.choice_set.all %}
+					<h6 style="font-size: 17px;">{{ forloop.counter }}. {{ choice.choice_text }} - {{ choice.votes }} votes
+					</h6>
+					<div class="progress red darken-2" style="width: {{ choice.votes }}%; height: 30px;" title="{{ choice.choice_text }} - {{ choice.votes }} votes"></div><div class="divider"></div>
+				{% endfor %}
+			</div>
+			<div class="col l12 s12">
+				<div id="chart" style="height: 500px; width: 100%">
+					<!-- For Visualization -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="{% static 'js/jquery.js' %}"></script>
+	<script src="{% static 'js/materialize.min.js' %}"></script>
+	<script src="{% static 'js/canvas.min.js' %}"></script>
+	<script>
+		var dpoints = [];
+		{% for choice in question.choice_set.all %}
+			dpoints.push({
+				y: {{ choice.votes }},
+				label: "{{ choice.choice_text }}"
+			});
+		{% endfor %}
+		window.onload = function (args) {
+			/* body... */
+			var chart = new CanvasJS.Chart("chart", {
+				animationEnabled: true,
+				title: {
+					text: "",
+					horizontalAlign: "left"
+				},
+				data: [{
+					type: "doughnut",
+					startAngle: 60,
+					indexLabelFontSize: 17,
+					indexLabel: "{label} - #percent%",
+					toolTipContent: "<b>{label}:</b> {y} (#percent%)",
+					dataPoints: dpoints
+				}]
+			});
+			chart.render();
+		}
+	</script>
+</body>
+</html>

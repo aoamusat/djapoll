@@ -1,0 +1,30 @@
+body {
+	font-weight: bold;
+	font-family: 'Lato', sans-serif;
+	line-height: 1.8;
+}
+
+a {
+	color: #EE7A1D;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+	color:#F76E13;
+}
+
+a:active, a:visited {
+	text-decoration: line-through;
+	color: #F76E13;
+}
+
+.btn {
+	background-color: #FFF;
+	border-radius: 5px;
+	padding: 5px;
+	font-size: 20px;
+	color: #E25F10;
+	border: 1px solid #E25F10;
+	cursor: pointer;
+}

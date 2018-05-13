@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Poll Results | {{ question.question_text }}</title>
+	<link rel="stylesheet" href="{% static 'css/materialize.min.css' %}" />
+	<link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}" />
+	<link rel="icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}" />
+</head>
+<body>
+	<nav class="pink darken-4" role="navigation">
+		<div class="nav-wrapper container">
+			<a href="{% url 'polls:index' %}" title="Home" class="brand-logo">NASS Poll</a>
+			<ul class="right hide-on-med-and-down">
+				<li><a href="#" title="">Polls</a></li>
+				<li><a href="#" title="">How it Works</a></li>
+				<li><a href="#" title="">Register</a></li>
+				<li><a href="#" title="">About</a></li>
+			</ul>
+			<ul class="side-nav" id="nav-mobile">
+				<li><a href="#" title="">Polls</a></li>
+				<li><a href="#" title="">How it Works</a></li>
+				<li><a href="#" title="">Register</a></li>
+				<li><a href="#" title="">About</a></li>
+			</ul>
+			<a href="#" data-activates="nav-mobile" class="button-collapse"><i class="fa fa-globle"></i></a>
+		</div>
+	</nav>
+	<!-- End nav -->
+	<div class="container">
+		<div class="row">
+			<div class="col l12 s12">
+				<h3 class="center orange-text">Question - {{ question.question_text }}</h3>
+				<div class="divider"></div>
+				<form action="{% url 'polls:vote' question.id %}" method="POST" accept-charset="utf-8">
+					{% csrf_token %}
+					{% for choice in question.choice_set.all %}
+						<p class="">
+							<input required type="radio" name="choice" value="{{ choice.id }}" id="choice{{ forloop.counter }}">
+							<label for="choice{{ forloop.counter }}" class="red-text darken-2">{{ choice.choice_text }}</label>
+						</p>
+					{% endfor %}
+					<button type="submit" class="btn btn-large green darken-4">Vote Now!</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script src="{% static 'js/jquery.js' %}"></script>
+	<script src="{% static 'js/materialize.min.js' %}"></script>
+</body>
+</html>

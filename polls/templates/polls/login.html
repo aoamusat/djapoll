@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Home | Login</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/materialize.min.css' %}" />
+	<link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}" />
+	<link rel="icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}" />
+</head>
+<body>
+	<!-- Navigation -->
+	<nav class="pink darken-4" role="navigation">
+		<div class="nav-wrapper container pin-top">
+			<a href="{% url 'polls:index' %}" title="Home" class="brand-logo">NASS Poll</a>
+			<ul class="right hide-on-med-and-down">
+				<li><a href="#" title="">Polls</a></li>
+				<li><a href="#" title="">How it Works</a></li>
+				<li><a href="#" title="">Register</a></li>
+				<li><a href="#" title="">About</a></li>
+			</ul>
+			<ul class="side-nav" id="nav-mobile">
+				<li><a href="#" title="">Polls</a></li>
+				<li><a href="#" title="">How it Works</a></li>
+				<li><a href="#" title="">Register</a></li>
+				<li><a href="#" title="">About</a></li>
+			</ul>
+			<a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">Menu</i></a>
+		</div>
+	</nav>
+	<!-- End nav -->
+	<div class="container">
+		<div class="row">
+			<div class="col l12">
+				<h3 class="center black-text">LOGIN HERE TO VOTE</h3>
+				<div class="divider"></div><br><br><br>
+				<form action="{% url 'polls:attempt_login' %}" method="POST" accept-charset="utf-8" class="col s12">
+					{% csrf_token %}
+					<div class="row">
+						<div class="input-field col s6">
+							<input type="text" name="username" value="" placeholder="Username" required class="validate">
+							<label for="username">USERNAME</label>
+						</div>
+						<div class="input-field col s6">
+							<input type="password" name="password" value="" placeholder="Password" required class="validate">
+							<label for="password">PASSWORD</label>
+						</div>
+					</div>
+					<BUTTON type="submit" class="btn btn-large">Login</BUTTON>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!-- footer  -->
+	<footer class="page-footer teal darken-4">
+	    <div class="container">
+	      	<div class="row">
+	        <div class="col l6 s12">
+	          	<h5 class="white-text">About BigBang</h5>
+	          	<p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
+	        </div>
+	        <div class="col l3 s12">
+	          	<h5 class="white-text">Join The Team</h5><div class="divider"></div>
+	          	<ul>
+		            <li><a class="white-text" href="#!">IRC Channel</a></li>
+		            <li><a class="white-text" href="#!">Slack Bot</a></li>
+		            <li><a class="white-text" target="__blank" href="mailto:akeem@thenass.org.ng">Email Us</a></li>
+		            <li><a class="white-text" href="#!">Air Break</a></li>
+	          	</ul>
+	        </div>
+	        <div class="col l3 s12">
+	      	    <h5 class="white-text">Connect With Us</h5><div class="divider"></div>
+	        	<ul>
+		            <li><a class="white-text" href="#!">Facebook</a></li>
+		            <li><a class="white-text" href="#!">Instagram</a></li>
+		            <li><a class="white-text" href="#!">Twitter</a></li>
+		            <li><a class="white-text" href="#!">LinkedIn</a></li>
+	          	</ul>
+	        </div>
+	      </div>
+	    </div>
+	    <div class="footer-copyright">
+	      	<div class="container">
+	      		Built By <a class="orange-text text-lighten-3" target="__blank" href="https://dev-haykay.github.io">Y.A.P__</a>
+	      		<span class="right">All Rights Reserved. BigBang &copy; 2017. <strong>RC 121618</strong></span>
+	      	</div>
+	    </div>
+ 	</footer>
+ 	<!-- footer ends -->
+
+
+	<script src="{% static 'js/jquery.js' %}"></script>
+	<script src="{% static 'js/materialize.min.js' %}"></script>
+</body>
+</html>

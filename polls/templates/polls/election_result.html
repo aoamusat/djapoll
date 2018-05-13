@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>All Election Result</title>
+	<link rel="stylesheet" href="{% static 'css/materialize.min.css' %}" />
+	<link rel="stylesheet" href="{% static 'css/font-awesome-4.7.0/css/font-awesome.min.css' %}" />
+	<link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}" />
+	<link rel="icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}" />
+</head>
+<body>
+	<nav class="pink darken-4" role="navigation">
+		<div class="nav-wrapper container">
+			<a href="#!" title="Home" class="brand-logo">NASS Poll</a>
+			<ul class="right hide-on-med-and-down">
+				<li><a href="#" title="">Polls</a></li>
+				<li><a href="#" title="">How it Works</a></li>
+				<li><a href="#" title="">Register</a></li>
+				<li><a href="#" title="">About</a></li>
+			</ul>
+			<ul class="side-nav" id="nav-mobile">
+				<li><a href="#" title="">Polls</a></li>
+				<li><a href="#" title="">How it Works</a></li>
+				<li><a href="#" title="">Register</a></li>
+				<li><a href="#" title="">About</a></li>
+			</ul>
+			<a href="#" data-activates="nav-mobile" class="button-collapse"><i class="fa fa-globe"></i></a>
+		</div>
+	</nav>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col l12">
+				{% if questions %}
+					{% for question in questions %}
+						<div class="card-panel teal">
+							<h5>{{ question.question_text }}</h5>
+							<div class="divider"></div>
+							<div class="collection">
+								{% for choice in question.choice_set.all %}
+									<p class="collection-item">{{ choice.choice_text }} <span class="new badge">{{ choice.votes }} votes</span></p>
+								{% endfor %}
+							</div>
+							<a href="{% url 'polls:results' question.id %}" title="More detail" class="btn black" target="__blank">Detail</a>
+						</div>
+					{% endfor %}
+				{% else %}
+					<h2 class="center text-darken-4 red">No Election Results!</h2>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+	<script src="{% static 'js/jquery.js' %}"></script>
+	<script src="{% static 'js/materialize.min.js' %}"></script>
+</body>
+</html>
